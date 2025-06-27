@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Warranty | GateStore{% endblock %}
+{% block content %}
+<div class="container py-5" data-aos="fade-up">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="text-center mb-5" data-aos="fade-down">
+        <h1 class="display-5 fw-bold mb-2">GateStore Warranty</h1>
+        <p class="lead text-muted">Peace of mind with every gate. Our products are backed by a comprehensive warranty for your security and satisfaction.</p>
+      </div>
+      <div class="card shadow-sm border-0 mb-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">What's Covered?</h4>
+          <ul class="list-unstyled mb-0">
+            <li><i class="bi bi-check-circle text-success me-2"></i>Manufacturing defects</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Material and workmanship issues</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Structural integrity (frame, welds, joints)</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Paint/finish peeling within warranty period</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card shadow-sm border-0 mb-4" data-aos="zoom-in" data-aos-delay="200">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">How to Claim</h4>
+          <ol class="mb-0">
+            <li>Contact us via the <a href="{% url 'contact' %}">Contact Page</a> with your order details and issue description.</li>
+            <li>Attach clear photos of the defect/problem.</li>
+            <li>Our team will review and respond within 2 business days.</li>
+            <li>If approved, we will arrange repair, replacement, or service as per policy.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="card shadow-sm border-0" data-aos="zoom-in" data-aos-delay="300">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Warranty FAQ</h4>
+          <div class="accordion" id="warrantyFAQ" data-aos="fade-up" data-aos-delay="400">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="faq1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                  How long is the warranty period?
+                </button>
+              </h2>
+              <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#warrantyFAQ">
+                <div class="accordion-body">
+                  Our standard warranty is 2 years from the date of purchase. Please check your invoice for details.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="faq2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                  What is not covered?
+                </button>
+              </h2>
+              <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#warrantyFAQ">
+                <div class="accordion-body">
+                  Damage due to misuse, accidents, improper installation, or unauthorized modifications is not covered.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="faq3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                  Do I need my invoice/order number?
+                </button>
+              </h2>
+              <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#warrantyFAQ">
+                <div class="accordion-body">
+                  Yes, please keep your invoice or order confirmation for any warranty claims.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

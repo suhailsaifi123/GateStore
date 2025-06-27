@@ -1,0 +1,334 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}GateStore{% endblock %}</title>
+    <meta name="description" content="Premium gates for every home. Preview, customize, and order with confidence.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{% static 'img/logo.svg' %}">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="container-fluid px-0">
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm animate-navbar">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="/">
+                    <img src="{% static 'img/logo-large.svg' %}" alt="GateStore Logo" width="60" height="60" class="me-3">
+                    <span class="fw-bold fs-4 text-gradient">GateStore</span>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/" data-bs-toggle="tooltip" title="Home">
+                                <i class="bi bi-house me-1"></i>Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/shop/" data-bs-toggle="tooltip" title="Shop Gates">
+                                <i class="bi bi-shop me-1"></i>Shop
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/shop/preview/" data-bs-toggle="tooltip" title="Live Preview">
+                                <i class="bi bi-camera me-1"></i>Live Preview
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/gallery/" data-bs-toggle="tooltip" title="Gallery">
+                                <i class="bi bi-images me-1"></i>Gallery
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about/" data-bs-toggle="tooltip" title="About Us">
+                                <i class="bi bi-info-circle me-1"></i>About
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="supportDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-life-preserver me-1"></i>Support
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="supportDropdown">
+                                <li><a class="dropdown-item" href="{% url 'warranty' %}"><i class="bi bi-shield-check me-2"></i>Warranty</a></li>
+                                <li><a class="dropdown-item" href="{% url 'installation' %}"><i class="bi bi-tools me-2"></i>Installation</a></li>
+                                <li><a class="dropdown-item" href="/faq/"><i class="bi bi-question-circle me-2"></i>FAQ</a></li>
+                                <li><a class="dropdown-item" href="/contact/"><i class="bi bi-envelope me-2"></i>Contact</a></li>
+                            </ul>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle me-1"></i>{{ user.username }}
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarProfileDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="bi bi-person me-2"></i>Profile</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'profile' %}#orders"><i class="bi bi-bag me-2"></i>My Orders</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container py-4">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="footer bg-dark text-white pt-5 pb-3 mt-auto">
+            <div class="container">
+                <div class="row g-4 align-items-start">
+                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="{% static 'img/logo-large.svg' %}" alt="GateStore Logo" width="50" height="50" class="me-3">
+                            <span class="fw-bold fs-5 text-white">GateStore</span>
+                        </div>
+                        <p class="mb-3 text-white-50">Premium gates for every home. Quality, security, and style combined.</p>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="text-white-50 social-link" aria-label="Facebook"><i class="bi bi-facebook fs-4"></i></a>
+                            <a href="#" class="text-white-50 social-link" aria-label="Twitter"><i class="bi bi-twitter fs-4"></i></a>
+                            <a href="#" class="text-white-50 social-link" aria-label="Instagram"><i class="bi bi-instagram fs-4"></i></a>
+                            <a href="#" class="text-white-50 social-link" aria-label="LinkedIn"><i class="bi bi-linkedin fs-4"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                        <h6 class="fw-bold mb-3 text-white">Quick Links</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="/" class="text-white-50 text-decoration-none">Home</a></li>
+                            <li><a href="/shop/" class="text-white-50 text-decoration-none">Shop</a></li>
+                            <li><a href="/about/" class="text-white-50 text-decoration-none">About</a></li>
+                            <li><a href="/contact/" class="text-white-50 text-decoration-none">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                        <h6 class="fw-bold mb-3 text-white">Support</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="/faq/" class="text-white-50 text-decoration-none">FAQ</a></li>
+                            <li><a href="/contact/" class="text-white-50 text-decoration-none">Help</a></li>
+                            <li><a href="{% url 'warranty' %}" class="text-white-50 text-decoration-none">Warranty</a></li>
+                            <li><a href="{% url 'installation' %}" class="text-white-50 text-decoration-none">Installation</a></li>
+                            <li><a href="{% url 'privacy' %}" class="text-white-50 text-decoration-none">Privacy Policy</a></li>
+                            <li><a href="{% url 'terms' %}" class="text-white-50 text-decoration-none">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <h6 class="text-uppercase fw-bold mb-3">Newsletter</h6>
+                        <form id="newsletterForm" class="d-flex gap-2" method="post">
+                            <input type="email" class="form-control" placeholder="Your email" required disabled>
+                            <button class="btn btn-primary" type="submit" disabled>Subscribe</button>
+                        </form>
+                        <div id="newsletterMsg" class="mt-2 small"></div>
+                    </div>
+                </div>
+                <hr class="my-4 border-secondary">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                        <small class="text-white-50">&copy; 2025 GateStore. All rights reserved.</small>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <a href="{% url 'privacy' %}" class="text-white-50 text-decoration-none me-3">Privacy Policy</a>
+                        <a href="{% url 'terms' %}" class="text-white-50 text-decoration-none">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+    </script>
+    
+    <script>
+        // Auto-close mobile navigation when links are clicked
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            
+            // Function to close mobile menu
+            function closeMobileMenu() {
+                if (window.innerWidth < 992 && navbarCollapse.classList.contains('show')) {
+                    // Use Bootstrap's collapse method
+                    const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+                    if (bsCollapse) {
+                        bsCollapse.hide();
+                    } else {
+                        // Fallback: manually remove the show class
+                        navbarCollapse.classList.remove('show');
+                        navbarToggler.classList.add('collapsed');
+                        navbarToggler.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            }
+            
+            // Function to set active navigation link
+            function setActiveNavLink() {
+                const currentPath = window.location.pathname;
+                const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+                
+                // Remove active class from all links
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to current page link
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href) {
+                        // Handle home page
+                        if (currentPath === '/' && href === '/') {
+                            link.classList.add('active');
+                        }
+                        // Handle other pages
+                        else if (currentPath !== '/' && href !== '/' && currentPath.startsWith(href)) {
+                            link.classList.add('active');
+                        }
+                        // Handle exact matches
+                        else if (currentPath === href) {
+                            link.classList.add('active');
+                        }
+                    }
+                });
+            }
+            
+            // Set active navigation link on page load
+            setActiveNavLink();
+            
+            // Close mobile menu when nav links are clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Don't close if it's a dropdown toggle
+                    if (!this.classList.contains('dropdown-toggle')) {
+                        closeMobileMenu();
+                    }
+                });
+            });
+            
+            // Close mobile menu when dropdown items are clicked
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    closeMobileMenu();
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideNavbar = navbarCollapse.contains(event.target);
+                const isClickOnToggler = navbarToggler.contains(event.target);
+                
+                if (!isClickInsideNavbar && !isClickOnToggler && navbarCollapse.classList.contains('show')) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Close mobile menu on window resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 992) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+    
+    <script>
+        // Newsletter AJAX
+        const newsletterForm = document.getElementById('newsletterForm');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(newsletterForm);
+                fetch(newsletterForm.action, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                    },
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = document.getElementById('newsletterMsg');
+                    if (data.success) {
+                        msg.textContent = data.message;
+                        msg.className = 'mt-2 small text-success';
+                        newsletterForm.reset();
+                    } else {
+                        msg.textContent = data.message;
+                        msg.className = 'mt-2 small text-danger';
+                    }
+                })
+                .catch(() => {
+                    const msg = document.getElementById('newsletterMsg');
+                    msg.textContent = 'Something went wrong. Please try again.';
+                    msg.className = 'mt-2 small text-danger';
+                });
+            });
+        }
+    </script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 

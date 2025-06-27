@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">My Profile</h2>
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger">Logout</button>
+        </form>
+      </div>
+      <div class="card mb-4 shadow-sm border-0 rounded-4">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Account Info</h5>
+          <p class="mb-1"><strong>Username:</strong> {{ user.username }}</p>
+          <p class="mb-1"><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+      </div>
+      <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body">
+          <h5 class="card-title mb-3">My Orders</h5>
+          {% if orders %}
+            <div class="table-responsive">
+              <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Gate</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for order in orders %}
+                  <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.gate }}</td>
+                    <td>₹{{ order.amount }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.created_at|date:'Y-m-d H:i' }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <p class="text-muted">You have not placed any orders yet.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

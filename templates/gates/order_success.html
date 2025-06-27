@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Order Placed | GateStore{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card shadow-sm border-0" data-aos="fade-up">
+                <div class="card-body p-4 text-center">
+                    <h2 class="mb-3 text-success"><i class="bi bi-check-circle me-2"></i>Order Placed!</h2>
+                    <p class="lead">Thank you for your order. Our team will review your payment and contact you soon.</p>
+                    <hr>
+                    <h5>Order Details</h5>
+                    <p><strong>Gate:</strong> {{ order.gate.name }}</p>
+                    <p><strong>Weight:</strong> {{ order.weight_kg }} Kg</p>
+                    <p><strong>Total Price:</strong> ₹{{ order.total_price }}</p>
+                    <p><strong>Advance Paid (50%):</strong> ₹{{ order.advance_paid }}</p>
+                    <a href="/accounts/dashboard/" class="btn btn-primary mt-3">Go to My Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

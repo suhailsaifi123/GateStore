@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}My Account | GateStore{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4 shadow-sm" data-aos="fade-up">
+                <h2 class="mb-4">My Account</h2>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <hr>
+                <h4>Order History</h4>
+                <p>(Order history will appear here in the future.)</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

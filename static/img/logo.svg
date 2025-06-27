@@ -1,0 +1,53 @@
+<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="60" height="60" rx="12" fill="#1e40af"/>
+  
+  <!-- Gate structure - modern design -->
+  <g transform="translate(30, 30)">
+    <!-- Left pillar -->
+    <rect x="-22" y="-18" width="6" height="36" fill="#ffffff"/>
+    <rect x="-20" y="-16" width="2" height="32" fill="#1e40af"/>
+    
+    <!-- Right pillar -->
+    <rect x="16" y="-18" width="6" height="36" fill="#ffffff"/>
+    <rect x="18" y="-16" width="2" height="32" fill="#1e40af"/>
+    
+    <!-- Top beam -->
+    <rect x="-22" y="-18" width="44" height="6" fill="#ffffff"/>
+    <rect x="-20" y="-16" width="40" height="2" fill="#1e40af"/>
+    
+    <!-- Left gate panel -->
+    <rect x="-18" y="-14" width="16" height="28" fill="#fbbf24"/>
+    <rect x="-16" y="-12" width="12" height="24" fill="#ffffff" opacity="0.2"/>
+    
+    <!-- Right gate panel -->
+    <rect x="2" y="-14" width="16" height="28" fill="#fbbf24"/>
+    <rect x="4" y="-12" width="12" height="24" fill="#ffffff" opacity="0.2"/>
+    
+    <!-- Gate details - horizontal lines -->
+    <rect x="-16" y="-10" width="12" height="2" fill="#1e40af" opacity="0.3"/>
+    <rect x="-16" y="-4" width="12" height="2" fill="#1e40af" opacity="0.3"/>
+    <rect x="-16" y="2" width="12" height="2" fill="#1e40af" opacity="0.3"/>
+    <rect x="-16" y="8" width="12" height="2" fill="#1e40af" opacity="0.3"/>
+    <rect x="-16" y="14" width="12" height="2" fill="#1e40af" opacity="0.3"/>
+    
+    <rect x="4" y="-10" width="12" height="2" fill="#1e40af" opacity="0.3"/>
+    <rect x="4" y="-4" width="12" height="2" fill="#1e40af" opacity="0.3"/>
+    <rect x="4" y="2" width="12" height="2" fill="#1e40af" opacity="0.3"/>
+    <rect x="4" y="8" width="12" height="2" fill="#1e40af" opacity="0.3"/>
+    <rect x="4" y="14" width="12" height="2" fill="#1e40af" opacity="0.3"/>
+    
+    <!-- Center lock -->
+    <circle cx="0" cy="0" r="3" fill="#ffffff"/>
+    <circle cx="0" cy="0" r="1.5" fill="#1e40af"/>
+    
+    <!-- Hinges -->
+    <circle cx="-19" cy="-8" r="2" fill="#ffffff"/>
+    <circle cx="-19" cy="8" r="2" fill="#ffffff"/>
+    <circle cx="19" cy="-8" r="2" fill="#ffffff"/>
+    <circle cx="19" cy="8" r="2" fill="#ffffff"/>
+  </g>
+  
+  <!-- Subtle border -->
+  <rect width="60" height="60" rx="12" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.3"/>
+</svg> 

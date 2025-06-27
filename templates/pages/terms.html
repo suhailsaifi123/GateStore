@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% block title %}Terms of Service | GateStore{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="text-center mb-5" data-aos="fade-down">
+        <h1 class="display-5 fw-bold mb-2">Terms of Service</h1>
+        <p class="lead text-muted">Please read these terms carefully before using our services.</p>
+        <p class="text-muted small">Last updated: {{ "now"|date:"F j, Y" }}</p>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Acceptance of Terms</h4>
+          <p class="mb-3">By accessing and using GateStore's website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.</p>
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle me-2"></i>
+            <strong>Note:</strong> These terms apply to all users, customers, and visitors of our website.
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Account Registration</h4>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>You must provide accurate and complete information when creating an account</li>
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>You are responsible for maintaining the security of your account credentials</li>
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>You must be at least 18 years old to create an account</li>
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>One account per person is allowed</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Product Information and Pricing</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="text-primary">Product Details</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-image text-info me-2"></i>Product images are representative</li>
+                <li><i class="bi bi-rulers text-info me-2"></i>Dimensions may vary slightly</li>
+                <li><i class="bi bi-palette text-info me-2"></i>Colors may differ from screen</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-primary">Pricing</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-currency-rupee text-info me-2"></i>Prices are in Indian Rupees (₹)</li>
+                <li><i class="bi bi-calendar text-info me-2"></i>Prices subject to change</li>
+                <li><i class="bi bi-tag text-info me-2"></i>All taxes included where applicable</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="400">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Ordering and Payment</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="text-primary">Order Process</h6>
+              <ol class="list-unstyled">
+                <li class="mb-2"><i class="bi bi-1-circle text-primary me-2"></i>Select your desired gate</li>
+                <li class="mb-2"><i class="bi bi-2-circle text-primary me-2"></i>Provide order details</li>
+                <li class="mb-2"><i class="bi bi-3-circle text-primary me-2"></i>Pay 50% advance</li>
+                <li class="mb-2"><i class="bi bi-4-circle text-primary me-2"></i>Upload payment proof</li>
+              </ol>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-primary">Payment Terms</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-credit-card text-success me-2"></i>50% advance payment required</li>
+                <li><i class="bi bi-cash-coin text-success me-2"></i>Remaining 50% on delivery</li>
+                <li><i class="bi bi-receipt text-success me-2"></i>Payment proof required</li>
+                <li><i class="bi bi-clock text-success me-2"></i>Orders processed within 24 hours</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="500">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Delivery and Installation</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="text-primary">Delivery</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-truck text-warning me-2"></i>Free delivery within city limits</li>
+                <li><i class="bi bi-calendar-check text-warning me-2"></i>Delivery within 7-14 days</li>
+                <li><i class="bi bi-person-check text-warning me-2"></i>Signature required on delivery</li>
+                <li><i class="bi bi-shield-check text-warning me-2"></i>Insurance included</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-primary">Installation</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-tools text-warning me-2"></i>Professional installation included</li>
+                <li><i class="bi bi-clock-history text-warning me-2"></i>Installation within 24 hours</li>
+                <li><i class="bi bi-award text-warning me-2"></i>1-year installation warranty</li>
+                <li><i class="bi bi-telephone text-warning me-2"></i>24/7 support available</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="600">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Returns and Refunds</h4>
+          <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            <strong>Custom Products:</strong> Gates are custom-made to your specifications and cannot be returned unless defective.
+          </div>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Defective products will be replaced or refunded</li>
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Claims must be reported within 7 days of delivery</li>
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Photos of defects required for claims</li>
+            <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Refunds processed within 5-7 business days</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="700">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Warranty and Support</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="text-primary">Product Warranty</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-shield-check text-success me-2"></i>5-year structural warranty</li>
+                <li><i class="bi bi-shield-check text-success me-2"></i>2-year finish warranty</li>
+                <li><i class="bi bi-shield-check text-success me-2"></i>1-year installation warranty</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-primary">Customer Support</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-telephone text-success me-2"></i>24/7 phone support</li>
+                <li><i class="bi bi-envelope text-success me-2"></i>Email support within 24 hours</li>
+                <li><i class="bi bi-chat text-success me-2"></i>Live chat during business hours</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="800">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Limitation of Liability</h4>
+          <p class="mb-3">GateStore's liability is limited to the amount paid for the product. We are not liable for:</p>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="bi bi-x-circle text-danger me-2"></i>Indirect or consequential damages</li>
+            <li class="mb-2"><i class="bi bi-x-circle text-danger me-2"></i>Loss of profits or business interruption</li>
+            <li class="mb-2"><i class="bi bi-x-circle text-danger me-2"></i>Damage caused by improper installation</li>
+            <li class="mb-2"><i class="bi bi-x-circle text-danger me-2"></i>Natural disasters or acts of God</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="900">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Contact Information</h4>
+          <p class="mb-3">For questions about these Terms of Service, please contact us:</p>
+          <div class="row">
+            <div class="col-md-6">
+              <p><i class="bi bi-envelope me-2"></i><strong>Email:</strong> legal@gatestore.com</p>
+              <p><i class="bi bi-telephone me-2"></i><strong>Phone:</strong> +91 9917554540</p>
+            </div>
+            <div class="col-md-6">
+              <p><i class="bi bi-geo-alt me-2"></i><strong>Address:</strong> GateStore Legal Department<br>123 Security Street, Mumbai, India</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="1000">
+        <a href="{% url 'contact' %}" class="btn btn-primary me-3">
+          <i class="bi bi-chat-dots me-2"></i>Contact Us
+        </a>
+        <a href="{% url 'privacy' %}" class="btn btn-outline-primary">
+          <i class="bi bi-shield-check me-2"></i>Privacy Policy
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

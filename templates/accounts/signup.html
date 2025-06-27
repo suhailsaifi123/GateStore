@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign Up | GateStore{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm" data-aos="fade-up">
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold">Create Account</h2>
+                        <p class="text-muted">Join GateStore and start exploring premium gates</p>
+                    </div>
+                    
+                    {% if form.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            Please check the information below and try again.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endif %}
+                    
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="id_username" class="form-label">
+                                <i class="bi bi-person me-2"></i>Username
+                            </label>
+                            <input type="text" 
+                                   class="form-control {% if form.username.errors %}is-invalid{% endif %}" 
+                                   id="id_username" 
+                                   name="username" 
+                                   value="{{ form.username.value|default:'' }}"
+                                   placeholder="Choose a username"
+                                   required>
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="id_password1" class="form-label">
+                                <i class="bi bi-lock me-2"></i>Password
+                            </label>
+                            <input type="password" 
+                                   class="form-control {% if form.password1.errors %}is-invalid{% endif %}" 
+                                   id="id_password1" 
+                                   name="password1" 
+                                   placeholder="Create a strong password"
+                                   required>
+                            {% if form.password1.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password1.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="id_password2" class="form-label">
+                                <i class="bi bi-lock-fill me-2"></i>Confirm Password
+                            </label>
+                            <input type="password" 
+                                   class="form-control {% if form.password2.errors %}is-invalid{% endif %}" 
+                                   id="id_password2" 
+                                   name="password2" 
+                                   placeholder="Confirm your password"
+                                   required>
+                            {% if form.password2.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password2.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 btn-lg mb-3">
+                            <i class="bi bi-person-plus me-2"></i>Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="text-center">
+                        <p class="text-muted mb-0">
+                            Already have an account? 
+                            <a href="/accounts/login/" class="text-decoration-none fw-semibold">Sign in</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// Password confirmation validation
+document.getElementById('id_password2').addEventListener('input', function() {
+    const password1 = document.getElementById('id_password1').value;
+    const password2 = this.value;
+    
+    if (password1 !== password2) {
+        this.setCustomValidity('Passwords do not match');
+    } else {
+        this.setCustomValidity('');
+    }
+});
+
+document.getElementById('id_password1').addEventListener('input', function() {
+    const password2 = document.getElementById('id_password2');
+    if (password2.value) {
+        password2.dispatchEvent(new Event('input'));
+    }
+});
+</script>
+{% endblock %} 

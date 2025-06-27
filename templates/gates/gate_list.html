@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Shop | GateStore{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4" data-aos="fade-right">Shop Gates</h2>
+    <form method="get" class="mb-4" data-aos="fade-up">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-3">
+                <label for="material" class="form-label">Material</label>
+                <select name="material" id="material" class="form-select">
+                    <option value="" {% if not request.GET.material %}selected{% endif %}>All</option>
+                    <option value="iron" {% if request.GET.material == 'iron' %}selected{% endif %}>Iron</option>
+                    <option value="steel" {% if request.GET.material == 'steel' %}selected{% endif %}>Steel</option>
+                    <option value="wood" {% if request.GET.material == 'wood' %}selected{% endif %}>Wood</option>
+                    <option value="aluminum" {% if request.GET.material == 'aluminum' %}selected{% endif %}>Aluminum</option>
+                    <option value="other" {% if request.GET.material == 'other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Filter</button>
+            </div>
+        </div>
+    </form>
+    <div class="row g-4">
+        {% for gate in gates %}
+        <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+            <div class="card h-100">
+                <a href="{% url 'gate_detail' gate.slug %}" class="text-decoration-none">
+                    <img src="{{ gate.image.url }}" class="img-fluid card-img-top" alt="{{ gate.name }}" style="cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)';">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ gate.name }}</h5>
+                    <p class="card-text">{{ gate.material|title }} | {{ gate.dimensions }}</p>
+                    <p class="card-text fw-bold d-none">${{ gate.price }}</p>
+                    {% if gate.material == "iron" %}
+                    <p class="card-text text-muted">Pipe Material: ₹90 per Kg</p>
+                    {% endif %}
+                    <a href="{% url 'gate_detail' gate.slug %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p class="lead text-muted">No gates found for the selected filter.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

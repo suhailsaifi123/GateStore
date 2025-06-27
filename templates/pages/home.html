@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home | GateStore - Premium Gates for Every Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center py-5 mb-5" data-aos="fade-down">
+    <div class="container">
+        <h1 class="display-3 fw-bold mb-4 animated-heading">
+            <span class="animated-text">Premium Gates</span> for 
+            <span class="text-gradient animated-gradient">Every Home</span>
+        </h1>
+        <p class="lead mb-5 fs-5">Discover beautiful, secure gates that enhance your property. Preview, customize, and order with confidence using our innovative live preview technology.</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="/shop/" class="btn btn-primary btn-lg">
+                <i class="bi bi-shop me-2"></i>Shop Gates
+            </a>
+            <a href="/shop/preview/" class="btn btn-outline-primary btn-lg">
+                <i class="bi bi-camera me-2"></i>Live Preview
+            </a>
+            <a href="/gallery/" class="btn btn-outline-secondary btn-lg">
+                <i class="bi bi-images me-2"></i>View Gallery
+            </a>
+        </div>
+        
+        <!-- Stats Section -->
+        <div class="row mt-5 pt-5">
+            <div class="col-md-3 col-6 mb-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-center">
+                    <div class="h2 fw-bold text-primary mb-1">500+</div>
+                    <small class="text-muted">Happy Customers</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-center">
+                    <div class="h2 fw-bold text-primary mb-1">50+</div>
+                    <small class="text-muted">Gate Designs</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-center">
+                    <div class="h2 fw-bold text-primary mb-1">5+</div>
+                    <small class="text-muted">Years Experience</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-center">
+                    <div class="h2 fw-bold text-primary mb-1">24/7</div>
+                    <small class="text-muted">Support</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Gates Carousel -->
+<section class="mb-5" data-aos="fade-up">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="section-title">Featured Gates</h2>
+            <p class="text-muted">Explore our most popular gate designs</p>
+        </div>
+        <div id="featuredGatesCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#featuredGatesCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#featuredGatesCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#featuredGatesCarousel" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner rounded">
+                <div class="carousel-item active">
+                    <div class="d-flex align-items-center justify-content-center bg-gradient-primary text-white" style="height: 400px;">
+                        <div class="text-center">
+                            <i class="bi bi-shield-check display-1 mb-3"></i>
+                            <h3>Iron Security Gate</h3>
+                            <p class="fs-5">Premium iron gates with advanced security features</p>
+                            <a href="/shop/" class="btn btn-light">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-flex align-items-center justify-content-center bg-gradient-accent text-white" style="height: 400px;">
+                        <div class="text-center">
+                            <i class="bi bi-tree display-1 mb-3"></i>
+                            <h3>Wooden Elegance Gate</h3>
+                            <p class="fs-5">Beautiful wooden gates for a natural, elegant look</p>
+                            <a href="/shop/" class="btn btn-light">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #2c3e50, #34495e); height: 400px; color: white;">
+                        <div class="text-center">
+                            <i class="bi bi-gear display-1 mb-3"></i>
+                            <h3>Custom Design Gates</h3>
+                            <p class="fs-5">Bespoke gates tailored to your exact specifications</p>
+                            <a href="/shop/" class="btn btn-light">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#featuredGatesCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#featuredGatesCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light" data-aos="fade-up">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Why Choose GateStore?</h2>
+            <p class="text-muted">We combine innovation with craftsmanship to deliver exceptional gates</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                            <i class="bi bi-camera text-primary fs-1"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Live Preview Technology</h5>
+                        <p class="card-text">See how gates look on your property before you buy with our innovative AR preview technology.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                            <i class="bi bi-shield-check text-success fs-1"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Premium Quality</h5>
+                        <p class="card-text">All our gates are crafted from the finest materials with attention to detail and durability.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 text-center border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                            <i class="bi bi-tools text-warning fs-1"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Expert Installation</h5>
+                        <p class="card-text">Professional installation service with warranty and ongoing support for peace of mind.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-5" data-aos="fade-up">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="text-muted">Real feedback from satisfied customers</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                <i class="bi bi-person text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">Sarah Johnson</h6>
+                                <small class="text-muted">Homeowner</small>
+                            </div>
+                        </div>
+                        <p class="card-text">"The live preview feature helped me choose the perfect gate for my home. The quality exceeded my expectations!"</p>
+                        <div class="text-warning">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                <i class="bi bi-person text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">Michael Chen</h6>
+                                <small class="text-muted">Property Manager</small>
+                            </div>
+                        </div>
+                        <p class="card-text">"Professional service from start to finish. The installation team was punctual and the gate looks fantastic."</p>
+                        <div class="text-warning">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                <i class="bi bi-person text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">Emily Rodriguez</h6>
+                                <small class="text-muted">Architect</small>
+                            </div>
+                        </div>
+                        <p class="card-text">"As an architect, I appreciate the attention to detail and the variety of styles available. Highly recommended!"</p>
+                        <div class="text-warning">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-gradient-primary text-white" data-aos="fade-up">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Transform Your Property?</h2>
+        <p class="lead mb-4">Join thousands of satisfied customers who have enhanced their homes with our premium gates.</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="/shop/" class="btn btn-light btn-lg">
+                <i class="bi bi-shop me-2"></i>Browse Collection
+            </a>
+            <a href="/contact/" class="btn btn-outline-light btn-lg">
+                <i class="bi bi-envelope me-2"></i>Get Quote
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %} 

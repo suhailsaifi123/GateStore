@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About Us | GateStore{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto text-center mb-5">
+            <h1 class="display-4 fw-bold mb-4" data-aos="fade-down">About GateStore</h1>
+            <p class="lead fs-5 text-muted" data-aos="fade-up">We're passionate about bringing quality, security, and style to every home through innovative gate solutions.</p>
+        </div>
+    </div>
+
+    <!-- Our Story Section -->
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6" data-aos="fade-right">
+            <h2 class="fw-bold mb-4">Our Story</h2>
+            <p class="lead mb-4">GateStore was founded with a simple mission: to revolutionize how people choose and experience gates for their homes.</p>
+            <p class="mb-4">We combine traditional craftsmanship with cutting-edge technology, offering an innovative live preview system that lets you see exactly how a gate will look on your property before making a purchase.</p>
+            <div class="d-flex gap-3">
+                <div class="text-center">
+                    <div class="h3 fw-bold text-primary mb-1">500+</div>
+                    <small class="text-muted">Happy Customers</small>
+                </div>
+                <div class="text-center">
+                    <div class="h3 fw-bold text-primary mb-1">50+</div>
+                    <small class="text-muted">Gate Designs</small>
+                </div>
+                <div class="text-center">
+                    <div class="h3 fw-bold text-primary mb-1">5+</div>
+                    <small class="text-muted">Years Experience</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+            <div class="bg-gradient-primary rounded-3 p-5 text-white text-center">
+                <i class="bi bi-shield-check display-1 mb-3"></i>
+                <h3>Quality & Security</h3>
+                <p class="mb-0">Every gate we create is built to last, providing both beauty and protection for your home.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold mb-4" data-aos="fade-up">Meet Our Team</h2>
+        <p class="lead text-muted mb-5" data-aos="fade-up">Dedicated professionals committed to excellence</p>
+    </div>
+    
+    <div class="row g-4 mb-5">
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="card h-100 border-0 shadow-sm text-center">
+                <div class="card-body p-4">
+                    <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 120px; height: 120px;">
+                        <i class="bi bi-person-badge text-primary" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Suhail Khan</h5>
+                    <p class="text-primary fw-semibold mb-2">Founder & CEO</p>
+                    <p class="card-text text-muted">Visionary leader with over 10 years of experience in the gate industry, passionate about innovation and customer satisfaction.</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="#" class="text-muted"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="text-muted"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="card h-100 border-0 shadow-sm text-center">
+                <div class="card-body p-4">
+                    <div class="bg-success bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 120px; height: 120px;">
+                        <i class="bi bi-palette text-success" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Alex Smith</h5>
+                    <p class="text-success fw-semibold mb-2">Lead Designer</p>
+                    <p class="card-text text-muted">Creative designer with expertise in architectural aesthetics and modern gate design trends.</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="#" class="text-muted"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="text-muted"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="card h-100 border-0 shadow-sm text-center">
+                <div class="card-body p-4">
+                    <div class="bg-warning bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 120px; height: 120px;">
+                        <i class="bi bi-headset text-warning" style="font-size: 3rem;"></i>
+                    </div>
+                    <h5 class="card-title fw-bold">Priya Patel</h5>
+                    <p class="text-warning fw-semibold mb-2">Customer Success</p>
+                    <p class="card-text text-muted">Dedicated to ensuring every customer has an exceptional experience from consultation to installation.</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="#" class="text-muted"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="text-muted"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission & Values -->
+    <div class="row g-4">
+        <div class="col-lg-6" data-aos="fade-right">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-bullseye text-primary fs-1 me-3"></i>
+                        <h3 class="mb-0">Our Mission</h3>
+                    </div>
+                    <p class="lead">To deliver beautiful, secure gates that enhance every home, with a seamless and innovative shopping experience that puts the customer first.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="bi bi-heart text-danger fs-1 me-3"></i>
+                        <h3 class="mb-0">Our Values</h3>
+                    </div>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Quality craftsmanship</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Customer satisfaction</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Innovation & technology</li>
+                        <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Integrity & transparency</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

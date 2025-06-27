@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting to PayUMoney...</title>
+    <meta http-equiv="refresh" content="3">
+</head>
+<body onload="document.forms['payuForm'].submit();">
+    <div style="text-align:center; margin-top:100px;">
+        <h2>Redirecting to PayUMoney...</h2>
+        <p>Please wait, do not refresh or close this page.</p>
+    </div>
+    <form name="payuForm" method="post" action="{{ payu_url }}">
+        {% for key, value in payu_data.items %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}" />
+        {% endfor %}
+    </form>
+</body>
+</html> 

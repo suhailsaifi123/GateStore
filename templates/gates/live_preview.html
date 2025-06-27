@@ -1,0 +1,703 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Live Preview | GateStore{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="text-center mb-5" data-aos="fade-down">
+        <h1 class="display-4 fw-bold mb-3">Live Preview</h1>
+        <p class="lead text-muted">See how our gates will look on your property before you buy</p>
+    </div>
+
+    <!-- Gate Selection -->
+    <div class="row justify-content-center mb-5" data-aos="fade-up">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-gear me-2"></i>Select Gate
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <select id="gateSelect" class="form-select" onchange="updateSelectedGate()">
+                        <option value="">Choose a gate to preview...</option>
+                        {% for gate in gates %}
+                        <option value="{{ gate.image.url }}" data-name="{{ gate.name }}">{{ gate.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div id="selectedGateInfo" class="mt-3" style="display: none;">
+                        <h6 class="mb-2">Selected: <span id="gateName"></span></h6>
+                        <img id="gatePreview" class="img-fluid rounded" style="max-height: 100px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Webcam Preview -->
+        <div class="col-lg-6" data-aos="fade-right">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-webcam me-2"></i>Webcam Preview
+                    </h6>
+                </div>
+                <div class="card-body p-3">
+                    <div class="position-relative">
+                        <video id="webcam" width="100%" autoplay playsinline class="rounded mb-3" style="display: none; max-height: 300px;"></video>
+                        <canvas id="gateOverlay" width="480" height="360" class="rounded mb-3 w-100" style="display: none; max-width: 100%; max-height: 300px;"></canvas>
+                        <button id="downloadWebcamSnapshot" class="btn btn-outline-success btn-sm mb-2" style="display:none; position:absolute; right:10px; top:10px; z-index:10;" onclick="downloadWebcamSnapshot()">
+                            <i class="bi bi-download me-1"></i>Download Snapshot
+                        </button>
+                        
+                        <!-- Loading indicator -->
+                        <div id="webcamLoading" class="text-center py-4" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2 text-muted">Starting camera...</p>
+                        </div>
+                        
+                        <!-- Camera not available message -->
+                        <div id="webcamError" class="text-center py-4" style="display: none;">
+                            <i class="bi bi-exclamation-triangle text-warning fs-1"></i>
+                            <p class="mt-2 text-muted">Camera not available. Please allow camera access or try uploading an image instead.</p>
+                        </div>
+                        
+                        <!-- No gate selected message -->
+                        <div id="noGateMessage" class="text-center py-4">
+                            <i class="bi bi-image text-muted fs-1"></i>
+                            <p class="mt-2 text-muted">Please select a gate from the dropdown above to start previewing</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-2">
+                        <button id="startWebcamBtn" class="btn btn-primary btn-sm" onclick="startWebcamPreview()" disabled>
+                            <i class="bi bi-camera me-1"></i>Start Camera
+                        </button>
+                        <button id="stopWebcamBtn" class="btn btn-outline-secondary btn-sm" onclick="stopWebcamPreview()" style="display: none;">
+                            <i class="bi bi-stop me-1"></i>Stop Camera
+                        </button>
+                        <button id="startRecordBtn" class="btn btn-success btn-sm" onclick="startRecording()" style="display: none;">
+                            <i class="bi bi-record-circle me-1"></i>Start Recording
+                        </button>
+                        <button id="stopRecordBtn" class="btn btn-danger btn-sm" onclick="stopRecording()" style="display: none;">
+                            <i class="bi bi-stop-circle me-1"></i>Stop Recording
+                        </button>
+                        <button id="resetWebcamOverlayBtn" class="btn btn-outline-secondary btn-sm" onclick="resetWebcamOverlay()" style="display: none;">
+                            <i class="bi bi-arrow-clockwise me-1"></i>Reset Overlay
+                        </button>
+                    </div>
+                    
+                    <!-- Webcam Preview Sliders -->
+                    <div class="mt-3">
+                        <label class="form-label small">Gate Size:</label>
+                        <input type="range" id="gateSize" class="form-range" min="20" max="80" value="60" onchange="updateGateSize()">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span>Small</span>
+                            <span>Large</span>
+                        </div>
+                        <label class="form-label small mt-2">Gate Rotation:</label>
+                        <small class="text-muted d-block mb-1">Rotate gate to face front</small>
+                        <input type="range" id="gateRotation" class="form-range" min="-180" max="180" value="0" oninput="updateGateRotation()">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span>-180°</span>
+                            <span>0°</span>
+                            <span>+180°</span>
+                        </div>
+                        <label class="form-label small mt-2">Gate Tilt:</label>
+                        <input type="range" id="gateTilt" class="form-range" min="-45" max="45" value="0" oninput="updateGateTilt()">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span>-45°</span>
+                            <span>0°</span>
+                            <span>+45°</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Upload Image Preview -->
+        <div class="col-lg-6" data-aos="fade-left">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">
+                        <i class="bi bi-image me-2"></i>Upload Your House Image
+                    </h6>
+                </div>
+                <div class="card-body p-3">
+                    <div class="mb-3">
+                        <input type="file" id="houseImageInput" accept="image/*" class="form-control" onchange="loadHouseImage()">
+                        <div class="form-text">Upload a photo of your house to see how the gate will look</div>
+                    </div>
+                    <canvas id="arCanvas" width="480" height="360" class="rounded mb-3 w-100" style="max-width: 100%; max-height: 300px; display: none;"></canvas>
+                    <button id="downloadUploadSnapshot" class="btn btn-outline-success btn-sm mb-2" style="display:none; position:absolute; right:10px; top:10px; z-index:10;" onclick="downloadUploadSnapshot()">
+                        <i class="bi bi-download me-1"></i>Download Snapshot
+                    </button>
+                    <div class="d-flex gap-2">
+                        <button id="resetBtn" class="btn btn-outline-secondary btn-sm" onclick="resetHousePreview()" style="display: none;">
+                            <i class="bi bi-arrow-clockwise me-1"></i>Reset
+                        </button>
+                    </div>
+                    
+                    <!-- Upload Preview Sliders -->
+                    <div class="mt-3">
+                        <label class="form-label small">Gate Size:</label>
+                        <input type="range" id="arGateSize" class="form-range" min="20" max="150" value="60" oninput="updateARGateSize()">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span>Small</span>
+                            <span>Large</span>
+                        </div>
+                        <label class="form-label small mt-2">Gate Rotation:</label>
+                        <input type="range" id="arGateRotation" class="form-range" min="-180" max="180" value="0" oninput="updateARGateRotation()">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span>-180°</span>
+                            <span>0°</span>
+                            <span>+180°</span>
+                        </div>
+                        <label class="form-label small mt-2">Gate Transparency:</label>
+                        <input type="range" id="arGateAlpha" class="form-range" min="20" max="100" value="60" oninput="drawARCanvas()">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span>Opaque</span>
+                            <span>Transparent</span>
+                        </div>
+                        <label class="form-label small mt-2">Gate Tilt:</label>
+                        <input type="range" id="arGateTilt" class="form-range" min="-45" max="45" value="0" oninput="updateARGateTilt()">
+                        <div class="d-flex justify-content-between small text-muted">
+                            <span>-45°</span>
+                            <span>0°</span>
+                            <span>+45°</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+@media (max-width: 767px) {
+  #gateOverlay, #arCanvas {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100vw;
+    max-height: 50vw;
+  }
+  .card-body.p-3 {
+    padding: 1rem !important;
+  }
+  .container.py-4 {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  .row.g-4 > [class^='col-'] {
+    margin-bottom: 2rem;
+  }
+}
+</style>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let webcamStream = null;
+let gateImage = null;
+let isWebcamActive = false;
+let selectedGateUrl = '';
+
+// Update selected gate
+function updateSelectedGate() {
+    const select = document.getElementById('gateSelect');
+    const startBtn = document.getElementById('startWebcamBtn');
+    const noGateMessage = document.getElementById('noGateMessage');
+    const selectedGateInfo = document.getElementById('selectedGateInfo');
+    const gateName = document.getElementById('gateName');
+    const gatePreview = document.getElementById('gatePreview');
+    
+    if (select.value) {
+        selectedGateUrl = select.value;
+        gateName.textContent = select.options[select.selectedIndex].text;
+        gatePreview.src = select.value;
+        
+        startBtn.disabled = false;
+        noGateMessage.style.display = 'none';
+        selectedGateInfo.style.display = 'block';
+        
+        // Load gate image
+        gateImage = new Image();
+        gateImage.crossOrigin = "anonymous";
+        gateImage.src = select.value;
+    } else {
+        selectedGateUrl = '';
+        startBtn.disabled = true;
+        noGateMessage.style.display = 'block';
+        selectedGateInfo.style.display = 'none';
+        gateImage = null;
+    }
+    webcamGate = { x: 120, y: 100, width: 240, height: 120, dragging: false, resizing: false, offsetX: 0, offsetY: 0, rotation: 0 };
+    document.getElementById('gateSize').value = 60;
+    document.getElementById('gateTilt').value = 0;
+    document.getElementById('gateRotation').value = 0;
+}
+
+// Webcam preview functionality
+function startWebcamPreview() {
+    if (!selectedGateUrl) {
+        alert('Please select a gate first');
+        return;
+    }
+    
+    const video = document.getElementById('webcam');
+    const canvas = document.getElementById('gateOverlay');
+    const startBtn = document.getElementById('startWebcamBtn');
+    const stopBtn = document.getElementById('stopWebcamBtn');
+    const loading = document.getElementById('webcamLoading');
+    const error = document.getElementById('webcamError');
+    const noGateMessage = document.getElementById('noGateMessage');
+    
+    // Show loading
+    loading.style.display = 'block';
+    video.style.display = 'none';
+    canvas.style.display = 'none';
+    error.style.display = 'none';
+    noGateMessage.style.display = 'none';
+    
+    navigator.mediaDevices.getUserMedia({ 
+        video: { 
+            width: { ideal: 640 },
+            height: { ideal: 480 },
+            facingMode: 'environment'
+        } 
+    }).then(stream => {
+        webcamStream = stream;
+        video.srcObject = stream;
+        video.onloadedmetadata = () => {
+            video.play();
+            video.style.display = 'block';
+            canvas.style.display = 'block';
+            loading.style.display = 'none';
+            startBtn.style.display = 'none';
+            stopBtn.style.display = 'inline-block';
+            isWebcamActive = true;
+            drawOverlay();
+            document.getElementById('resetWebcamOverlayBtn').style.display = 'inline-block';
+            showWebcamDownloadBtn(true);
+        };
+    }).catch(err => {
+        console.error('Error accessing webcam:', err);
+        loading.style.display = 'none';
+        error.style.display = 'block';
+        startBtn.style.display = 'inline-block';
+        stopBtn.style.display = 'none';
+    });
+}
+
+function stopWebcamPreview() {
+    if (webcamStream) {
+        webcamStream.getTracks().forEach(track => track.stop());
+        webcamStream = null;
+    }
+    
+    const video = document.getElementById('webcam');
+    const canvas = document.getElementById('gateOverlay');
+    const startBtn = document.getElementById('startWebcamBtn');
+    const stopBtn = document.getElementById('stopWebcamBtn');
+    const noGateMessage = document.getElementById('noGateMessage');
+    
+    video.style.display = 'none';
+    canvas.style.display = 'none';
+    startBtn.style.display = 'inline-block';
+    stopBtn.style.display = 'none';
+    isWebcamActive = false;
+    
+    if (!selectedGateUrl) {
+        noGateMessage.style.display = 'block';
+    }
+    document.getElementById('resetWebcamOverlayBtn').style.display = 'none';
+    showWebcamDownloadBtn(false);
+}
+
+function updateGateSize() {
+    const canvas = document.getElementById('gateOverlay');
+    const size = document.getElementById('gateSize').value / 100;
+    webcamGate.width = canvas.width * size;
+    webcamGate.height = webcamGate.width * 0.5; // or use gateImage.height/gateImage.width for real aspect
+    // Redraw overlay immediately
+    drawOverlay();
+}
+
+// AR Upload Preview (Draggable/Resizable)
+let houseImg = null;
+let arGateImg = null;
+let arGate = {
+    x: 100, y: 100, width: 200, height: 100, dragging: false, resizing: false, offsetX: 0, offsetY: 0, rotation: 0
+};
+
+function loadHouseImage() {
+    const input = document.getElementById('houseImageInput');
+    const canvas = document.getElementById('arCanvas');
+    if (input.files && input.files[0] && selectedGateUrl) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            houseImg = new window.Image();
+            houseImg.onload = function() {
+                canvas.style.display = 'block';
+                drawARCanvas();
+            };
+            houseImg.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+        // Load gate image
+        arGateImg = new window.Image();
+        arGateImg.src = selectedGateUrl;
+        arGateImg.onload = drawARCanvas;
+        document.getElementById('resetBtn').style.display = 'inline-block';
+        showUploadDownloadBtn(true);
+    } else {
+        canvas.style.display = 'none';
+    }
+}
+
+function drawARCanvas() {
+    const canvas = document.getElementById('arCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (houseImg) ctx.drawImage(houseImg, 0, 0, canvas.width, canvas.height);
+    if (arGateImg) {
+        const alpha = document.getElementById('arGateAlpha').value / 100;
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        // Apply rotation
+        const cx = arGate.x + arGate.width / 2;
+        const cy = arGate.y + arGate.height / 2;
+        ctx.translate(cx, cy);
+        ctx.rotate((arGate.rotation || 0) * Math.PI / 180);
+        ctx.drawImage(arGateImg, -arGate.width / 2, -arGate.height / 2, arGate.width, arGate.height);
+        ctx.restore();
+    }
+}
+
+// Drag/resize logic
+let dragMode = null;
+document.getElementById('arCanvas').addEventListener('mousedown', function(e) {
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    // Check if near bottom-right corner for resize
+    if (x > arGate.x + arGate.width - 20 && x < arGate.x + arGate.width && y > arGate.y + arGate.height - 20 && y < arGate.y + arGate.height) {
+        arGate.resizing = true;
+        dragMode = 'resize';
+    } else if (x > arGate.x && x < arGate.x + arGate.width && y > arGate.y && y < arGate.y + arGate.height) {
+        arGate.dragging = true;
+        arGate.offsetX = x - arGate.x;
+        arGate.offsetY = y - arGate.y;
+        dragMode = 'move';
+    }
+});
+document.getElementById('arCanvas').addEventListener('mousemove', function(e) {
+    if (!arGate.dragging && !arGate.resizing) return;
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (arGate.dragging && dragMode === 'move') {
+        arGate.x = x - arGate.offsetX;
+        arGate.y = y - arGate.offsetY;
+    } else if (arGate.resizing && dragMode === 'resize') {
+        arGate.width = Math.max(40, x - arGate.x);
+        arGate.height = Math.max(40, y - arGate.y);
+    }
+    drawARCanvas();
+});
+document.getElementById('arCanvas').addEventListener('mouseup', function() {
+    arGate.dragging = false;
+    arGate.resizing = false;
+    dragMode = null;
+});
+document.getElementById('arCanvas').addEventListener('mouseleave', function() {
+    arGate.dragging = false;
+    arGate.resizing = false;
+    dragMode = null;
+});
+// Touch support
+['touchstart','touchmove','touchend'].forEach(evt => {
+    document.getElementById('arCanvas').addEventListener(evt, function(e) {
+        const rect = this.getBoundingClientRect();
+        let x, y;
+        if (e.touches && e.touches.length) {
+            x = e.touches[0].clientX - rect.left;
+            y = e.touches[0].clientY - rect.top;
+        } else if (e.changedTouches && e.changedTouches.length) {
+            x = e.changedTouches[0].clientX - rect.left;
+            y = e.changedTouches[0].clientY - rect.top;
+        }
+        if (evt === 'touchstart') {
+            if (x > arGate.x + arGate.width - 20 && x < arGate.x + arGate.width && y > arGate.y + arGate.height - 20 && y < arGate.y + arGate.height) {
+                arGate.resizing = true;
+                dragMode = 'resize';
+            } else if (x > arGate.x && x < arGate.x + arGate.width && y > arGate.y && y < arGate.y + arGate.height) {
+                arGate.dragging = true;
+                arGate.offsetX = x - arGate.x;
+                arGate.offsetY = y - arGate.y;
+                dragMode = 'move';
+            }
+        } else if (evt === 'touchmove') {
+            if (arGate.dragging && dragMode === 'move') {
+                arGate.x = x - arGate.offsetX;
+                arGate.y = y - arGate.offsetY;
+            } else if (arGate.resizing && dragMode === 'resize') {
+                arGate.width = Math.max(40, x - arGate.x);
+                arGate.height = Math.max(40, y - arGate.y);
+            }
+            drawARCanvas();
+        } else if (evt === 'touchend') {
+            arGate.dragging = false;
+            arGate.resizing = false;
+            dragMode = null;
+        }
+        e.preventDefault();
+    }, {passive: false});
+});
+
+function resetHousePreview() {
+    houseImg = null;
+    arGateImg = null;
+    arGate = {x: 100, y: 100, width: 200, height: 100, dragging: false, resizing: false, offsetX: 0, offsetY: 0, rotation: 0};
+    document.getElementById('arCanvas').style.display = 'none';
+    document.getElementById('houseImageInput').value = '';
+    document.getElementById('resetBtn').style.display = 'none';
+    showUploadDownloadBtn(false);
+    document.getElementById('arGateTilt').value = 0;
+    document.getElementById('arGateRotation').value = 0;
+}
+
+function updateGatePosition() {
+    const canvas = document.getElementById('arCanvas');
+    const xSlider = document.getElementById('gateX');
+    const ySlider = document.getElementById('gateY');
+    arGate.x = (canvas.width - arGate.width) * (xSlider.value / 100);
+    arGate.y = (canvas.height - arGate.height) * (ySlider.value / 100);
+    drawARCanvas();
+}
+
+// Clean up when page is unloaded
+window.addEventListener('beforeunload', function() {
+    stopWebcamPreview();
+});
+
+function startRecording() {
+    const canvas = document.getElementById('gateOverlay');
+    recordedChunks = [];
+    // Capture canvas stream
+    const canvasStream = canvas.captureStream(30); // 30 FPS
+    // Capture audio stream
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(audioStream => {
+        // Combine canvas video and audio tracks
+        const combinedStream = new MediaStream([
+            ...canvasStream.getVideoTracks(),
+            ...audioStream.getAudioTracks()
+        ]);
+        mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm' });
+        mediaRecorder.ondataavailable = function(e) {
+            if (e.data.size > 0) recordedChunks.push(e.data);
+        };
+        mediaRecorder.onstop = function() {
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const video = document.getElementById('recordedVideo');
+            video.src = url;
+            document.getElementById('recordedVideoContainer').style.display = 'block';
+            const downloadBtn = document.getElementById('downloadVideoBtn');
+            downloadBtn.href = url;
+        };
+        mediaRecorder.start();
+        document.getElementById('startRecordBtn').style.display = 'none';
+        document.getElementById('stopRecordBtn').style.display = 'inline-block';
+    }).catch(err => {
+        alert('Microphone access denied or not available. Recording will be video-only.');
+        // Fallback: record video only
+        mediaRecorder = new MediaRecorder(canvasStream, { mimeType: 'video/webm' });
+        mediaRecorder.ondataavailable = function(e) {
+            if (e.data.size > 0) recordedChunks.push(e.data);
+        };
+        mediaRecorder.onstop = function() {
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const video = document.getElementById('recordedVideo');
+            video.src = url;
+            document.getElementById('recordedVideoContainer').style.display = 'block';
+            const downloadBtn = document.getElementById('downloadVideoBtn');
+            downloadBtn.href = url;
+        };
+        mediaRecorder.start();
+        document.getElementById('startRecordBtn').style.display = 'none';
+        document.getElementById('stopRecordBtn').style.display = 'inline-block';
+    });
+}
+
+// Webcam overlay AR controls
+let webcamGate = { x: 120, y: 100, width: 240, height: 120, dragging: false, resizing: false, offsetX: 0, offsetY: 0, rotation: 0 };
+let webcamDragMode = null;
+
+function drawOverlay() {
+    if (!isWebcamActive || !gateImage) return;
+    const canvas = document.getElementById('gateOverlay');
+    const video = document.getElementById('webcam');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    if (gateImage.complete) {
+        // Apply rotation
+        ctx.save();
+        const cx = webcamGate.x + webcamGate.width / 2;
+        const cy = webcamGate.y + webcamGate.height / 2;
+        ctx.translate(cx, cy);
+        ctx.rotate((webcamGate.rotation || 0) * Math.PI / 180);
+        ctx.drawImage(gateImage, -webcamGate.width / 2, -webcamGate.height / 2, webcamGate.width, webcamGate.height);
+        ctx.restore();
+        // Draw resize handle (not rotated)
+        ctx.save();
+        ctx.fillStyle = '#007bff';
+        ctx.fillRect(webcamGate.x + webcamGate.width - 10, webcamGate.y + webcamGate.height - 10, 10, 10);
+        ctx.restore();
+    }
+    requestAnimationFrame(drawOverlay);
+}
+
+document.getElementById('gateOverlay').addEventListener('mousedown', function(e) {
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (x > webcamGate.x + webcamGate.width - 20 && x < webcamGate.x + webcamGate.width && y > webcamGate.y + webcamGate.height - 20 && y < webcamGate.y + webcamGate.height) {
+        webcamGate.resizing = true;
+        webcamDragMode = 'resize';
+    } else if (x > webcamGate.x && x < webcamGate.x + webcamGate.width && y > webcamGate.y && y < webcamGate.y + webcamGate.height) {
+        webcamGate.dragging = true;
+        webcamGate.offsetX = x - webcamGate.x;
+        webcamGate.offsetY = y - webcamGate.y;
+        webcamDragMode = 'move';
+    }
+});
+document.getElementById('gateOverlay').addEventListener('mousemove', function(e) {
+    if (!webcamGate.dragging && !webcamGate.resizing) return;
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (webcamGate.dragging && webcamDragMode === 'move') {
+        webcamGate.x = x - webcamGate.offsetX;
+        webcamGate.y = y - webcamGate.offsetY;
+    } else if (webcamGate.resizing && webcamDragMode === 'resize') {
+        webcamGate.width = Math.max(40, x - webcamGate.x);
+        webcamGate.height = Math.max(40, y - webcamGate.y);
+    }
+});
+document.getElementById('gateOverlay').addEventListener('mouseup', function() {
+    webcamGate.dragging = false;
+    webcamGate.resizing = false;
+    webcamDragMode = null;
+});
+document.getElementById('gateOverlay').addEventListener('mouseleave', function() {
+    webcamGate.dragging = false;
+    webcamGate.resizing = false;
+    webcamDragMode = null;
+});
+// Touch support
+['touchstart','touchmove','touchend'].forEach(evt => {
+    document.getElementById('gateOverlay').addEventListener(evt, function(e) {
+        const rect = this.getBoundingClientRect();
+        let x, y;
+        if (e.touches && e.touches.length) {
+            x = e.touches[0].clientX - rect.left;
+            y = e.touches[0].clientY - rect.top;
+        } else if (e.changedTouches && e.changedTouches.length) {
+            x = e.changedTouches[0].clientX - rect.left;
+            y = e.changedTouches[0].clientY - rect.top;
+        }
+        if (evt === 'touchstart') {
+            if (x > webcamGate.x + webcamGate.width - 20 && x < webcamGate.x + webcamGate.width && y > webcamGate.y + webcamGate.height - 20 && y < webcamGate.y + webcamGate.height) {
+                webcamGate.resizing = true;
+                webcamDragMode = 'resize';
+            } else if (x > webcamGate.x && x < webcamGate.x + webcamGate.width && y > webcamGate.y && y < webcamGate.y + webcamGate.height) {
+                webcamGate.dragging = true;
+                webcamGate.offsetX = x - webcamGate.x;
+                webcamGate.offsetY = y - webcamGate.y;
+                webcamDragMode = 'move';
+            }
+        } else if (evt === 'touchmove') {
+            if (webcamGate.dragging && webcamDragMode === 'move') {
+                webcamGate.x = x - webcamGate.offsetX;
+                webcamGate.y = y - webcamGate.offsetY;
+            } else if (webcamGate.resizing && webcamDragMode === 'resize') {
+                webcamGate.width = Math.max(40, x - webcamGate.x);
+                webcamGate.height = Math.max(40, y - webcamGate.y);
+            }
+        } else if (evt === 'touchend') {
+            webcamGate.dragging = false;
+            webcamGate.resizing = false;
+            webcamDragMode = null;
+        }
+        e.preventDefault();
+    }, {passive: false});
+});
+function resetWebcamOverlay() {
+    webcamGate = { x: 120, y: 100, width: 240, height: 120, dragging: false, resizing: false, offsetX: 0, offsetY: 0, rotation: 0 };
+    document.getElementById('gateTilt').value = 0;
+    document.getElementById('gateRotation').value = 0;
+}
+// Show/hide reset button
+function showResetWebcamOverlayBtn(show) {
+    document.getElementById('resetWebcamOverlayBtn').style.display = show ? 'inline-block' : 'none';
+}
+
+function updateARGateSize() {
+    const canvas = document.getElementById('arCanvas');
+    const size = document.getElementById('arGateSize').value / 100;
+    arGate.width = canvas.width * size;
+    arGate.height = arGate.width * 0.5;
+    drawARCanvas();
+}
+
+// Show/hide download buttons when canvases are visible
+function showWebcamDownloadBtn(show) {
+    document.getElementById('downloadWebcamSnapshot').style.display = show ? 'inline-block' : 'none';
+}
+function showUploadDownloadBtn(show) {
+    document.getElementById('downloadUploadSnapshot').style.display = show ? 'inline-block' : 'none';
+}
+
+// Download snapshot functions
+function downloadWebcamSnapshot() {
+    const canvas = document.getElementById('gateOverlay');
+    const link = document.createElement('a');
+    link.download = 'gate-preview.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+function downloadUploadSnapshot() {
+    const canvas = document.getElementById('arCanvas');
+    const link = document.createElement('a');
+    link.download = 'gate-preview.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+}
+
+function updateGateTilt() {
+    webcamGate.rotation = parseFloat(document.getElementById('gateTilt').value) || 0;
+}
+function updateARGateTilt() {
+    arGate.rotation = parseFloat(document.getElementById('arGateTilt').value) || 0;
+    drawARCanvas();
+}
+
+// New rotation functions
+function updateGateRotation() {
+    webcamGate.rotation = parseFloat(document.getElementById('gateRotation').value) || 0;
+}
+
+function updateARGateRotation() {
+    arGate.rotation = parseFloat(document.getElementById('arGateRotation').value) || 0;
+    drawARCanvas();
+}
+</script>
+{% endblock %} 

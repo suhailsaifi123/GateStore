@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Installation | GateStore{% endblock %}
+{% block content %}
+<div class="container py-5" data-aos="fade-up">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="text-center mb-5" data-aos="fade-down">
+        <h1 class="display-5 fw-bold mb-2">Gate Installation Services</h1>
+        <p class="lead text-muted">Professional installation for a perfect fit and lasting security. Let our experts handle your new gate from delivery to setup.</p>
+      </div>
+      <div class="card shadow-sm border-0 mb-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Our Installation Includes:</h4>
+          <ul class="list-unstyled mb-0">
+            <li><i class="bi bi-check-circle text-success me-2"></i>Site inspection and measurement</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Delivery and safe handling of your gate</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Expert fitting and alignment</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Hardware and accessories installation</li>
+            <li><i class="bi bi-check-circle text-success me-2"></i>Final quality check and customer walkthrough</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card shadow-sm border-0 mb-4" data-aos="zoom-in" data-aos-delay="200">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">How It Works</h4>
+          <ol class="mb-0">
+            <li>Book your installation via our <a href="{% url 'contact' %}">Contact Page</a> or after purchase.</li>
+            <li>Our team will schedule a site visit at your convenience.</li>
+            <li>We deliver and install your gate, ensuring a perfect fit.</li>
+            <li>Enjoy peace of mind with our post-installation support.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="card shadow-sm border-0" data-aos="zoom-in" data-aos-delay="300">
+        <div class="card-body text-center">
+          <h4 class="fw-bold mb-3">Ready to Book?</h4>
+          <a href="{% url 'contact' %}" class="btn btn-primary btn-lg"><i class="bi bi-calendar-check me-2"></i>Contact Us for Installation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 

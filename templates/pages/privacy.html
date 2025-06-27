@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block title %}Privacy Policy | GateStore{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="text-center mb-5" data-aos="fade-down">
+        <h1 class="display-5 fw-bold mb-2">Privacy Policy</h1>
+        <p class="lead text-muted">Your privacy is important to us. Learn how we collect, use, and protect your information.</p>
+        <p class="text-muted small">Last updated: {{ "now"|date:"F j, Y" }}</p>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Information We Collect</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="text-primary">Personal Information</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-check-circle text-success me-2"></i>Name and contact details</li>
+                <li><i class="bi bi-check-circle text-success me-2"></i>Email address</li>
+                <li><i class="bi bi-check-circle text-success me-2"></i>Phone number</li>
+                <li><i class="bi bi-check-circle text-success me-2"></i>Shipping address</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-primary">Technical Information</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-check-circle text-success me-2"></i>IP address</li>
+                <li><i class="bi bi-check-circle text-success me-2"></i>Browser type</li>
+                <li><i class="bi bi-check-circle text-success me-2"></i>Device information</li>
+                <li><i class="bi bi-check-circle text-success me-2"></i>Usage analytics</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">How We Use Your Information</h4>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="bi bi-arrow-right text-primary me-2"></i><strong>Order Processing:</strong> To fulfill your gate orders and provide installation services</li>
+            <li class="mb-2"><i class="bi bi-arrow-right text-primary me-2"></i><strong>Communication:</strong> To send order updates, invoices, and customer support</li>
+            <li class="mb-2"><i class="bi bi-arrow-right text-primary me-2"></i><strong>Account Management:</strong> To maintain your user account and order history</li>
+            <li class="mb-2"><i class="bi bi-arrow-right text-primary me-2"></i><strong>Service Improvement:</strong> To enhance our website and customer experience</li>
+            <li class="mb-2"><i class="bi bi-arrow-right text-primary me-2"></i><strong>Legal Compliance:</strong> To meet regulatory requirements and prevent fraud</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Data Security</h4>
+          <p class="mb-3">We implement industry-standard security measures to protect your personal information:</p>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-shield-check text-success me-2"></i>
+                <span>SSL encryption for data transmission</span>
+              </div>
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-shield-check text-success me-2"></i>
+                <span>Secure payment processing</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-shield-check text-success me-2"></i>
+                <span>Regular security audits</span>
+              </div>
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-shield-check text-success me-2"></i>
+                <span>Limited access to personal data</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="400">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Cookies and Tracking</h4>
+          <p class="mb-3">We use cookies to improve your browsing experience:</p>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="bi bi-circle-fill text-primary me-2" style="font-size: 0.5rem;"></i><strong>Essential Cookies:</strong> Required for website functionality</li>
+            <li class="mb-2"><i class="bi bi-circle-fill text-primary me-2" style="font-size: 0.5rem;"></i><strong>Analytics Cookies:</strong> Help us understand website usage</li>
+            <li class="mb-2"><i class="bi bi-circle-fill text-primary me-2" style="font-size: 0.5rem;"></i><strong>Preference Cookies:</strong> Remember your settings and choices</li>
+          </ul>
+          <p class="text-muted small">You can control cookie settings through your browser preferences.</p>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="500">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Your Rights</h4>
+          <div class="row">
+            <div class="col-md-6">
+              <h6 class="text-primary">Access and Control</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-eye text-info me-2"></i>View your personal data</li>
+                <li><i class="bi bi-pencil text-info me-2"></i>Update your information</li>
+                <li><i class="bi bi-trash text-info me-2"></i>Request data deletion</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <h6 class="text-primary">Communication</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-envelope-slash text-info me-2"></i>Opt-out of marketing emails</li>
+                <li><i class="bi bi-question-circle text-info me-2"></i>Ask questions about your data</li>
+                <li><i class="bi bi-flag text-info me-2"></i>Report privacy concerns</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4" data-aos="fade-up" data-aos-delay="600">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">Contact Us</h4>
+          <p class="mb-3">If you have questions about this Privacy Policy or our data practices, please contact us:</p>
+          <div class="row">
+            <div class="col-md-6">
+              <p><i class="bi bi-envelope me-2"></i><strong>Email:</strong> safinirazuddin@gmail.com</p>
+              <p><i class="bi bi-telephone me-2"></i><strong>Phone:</strong> +91 9917554540</p>
+            </div>
+            <div class="col-md-6">
+              <p><i class="bi bi-geo-alt me-2"></i><strong>Address:</strong> Sonda Road Unchi Sadak<br>Modinagar<br>Ghaziabad, Uttar Pardesh 201201</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="700">
+        <a href="{% url 'contact' %}" class="btn btn-primary">
+          <i class="bi bi-chat-dots me-2"></i>Contact Us
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} 
