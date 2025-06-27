@@ -11,8 +11,8 @@ class GateAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'gate', 'weight_kg', 'total_price', 'advance_paid', 'status', 'created_at']
-    list_filter = ['status', 'created_at', 'material']
+    list_display = ['id', 'user', 'gate', 'weight_kg', 'total_price', 'advance_paid', 'status', 'created_at', 'material']
+    list_filter = ['status', 'created_at', 'gate__material']
     search_fields = ['user__username', 'gate__name']
     readonly_fields = ['created_at']
     date_hierarchy = 'created_at'
